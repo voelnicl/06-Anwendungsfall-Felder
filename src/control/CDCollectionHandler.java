@@ -16,20 +16,28 @@ public class CDCollectionHandler {
      */
     public CDCollectionHandler(int[] amounts){
         //TODO: 01 - Konstruktor fertigstellen.
-
+        allCDs = new CompactDisc [amounts.length] [];
+        for (int i = 0; i < allCDs.length; i++) {
+            allCDs[i] = new CompactDisc[amounts[i]];
+        }
     }
 
     /**
      *
-     * @param box - Gewählter CD-Ständer
+     * @param box - (Array Index) Gewählter CD-Ständer
      * @param place - Gewählter Platz
-     * @param artist - Künstername/Bandname
+     * @param artist - Künstlername/Bandname
      * @param title - Albumtitel
      * @return - true, falls ein Platz frei war und die CD hinzugefügt werden konnte, sonst false.
      */
     public boolean addNewCD(int box, int place, String artist, String title){
         //TODO: 02 - Hinzufügen einer CD
-        return false;
+        if (allCDs[box][place] == null){
+            allCDs[box][place] = new CompactDisc(artist,title);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -41,6 +49,13 @@ public class CDCollectionHandler {
     public String[] getInfo(int box, int place){
         String[] output = new String[2];
         //TODO: 03 - Informationen zu einer bestimmen CD
+        if (allCDs[box][place] == null) {
+            output[0] = "Empty";
+            output[1] = "Empty";
+        } else {
+            output[0] = allCDs[box][place].getArtist();
+            output[1] = allCDs[box][place].getTitle();
+        }
         return output;
     }
 
@@ -52,7 +67,12 @@ public class CDCollectionHandler {
      */
     public boolean releaseCD(int box, int place){
         //TODO: 04 - Entfernen einer bestimmten CD
-        return false;
+        if (allCDs[box][place] == null) {
+            return false;
+        } else {
+            allCDs[box][place] = null;
+            return true;
+        }
     }
 
     /**
@@ -62,6 +82,11 @@ public class CDCollectionHandler {
      */
     public String[] getAllCDsFrom(int index){
         //TODO: 05 - Vollständige Informationsausgabe aller CDs - Nach Fertigstellung im MainPanelHandler Zeile 165-167 entkommentieren
+        String[] output = new String[allCDs[index].length *2];
+        for (int i = 0; i < output.length; i++) {
+            output[i] = allCDs[index][i].getArtist();
+            output[i+1] = allCDs[index][i].getTitle();
+        }
         return null;
     }
 
@@ -78,6 +103,6 @@ public class CDCollectionHandler {
      * @param box - Gewählter CD-Ständer
      */
     public void sort(int box){
-        //TODO: 07 - Sortieren eines CD-Ständers
+        //(TODO: 07 - Sortieren eines CD-Ständers)
     }
 }
