@@ -84,7 +84,7 @@ public class CDCollectionHandler {
         //TODO: 05 - Vollständige Informationsausgabe aller CDs - Nach Fertigstellung im MainPanelHandler Zeile 165-167 entkommentieren
         String[] output = new String[allCDs[index].length *2];
         for (int i = 0; i < allCDs[index].length; i++) {
-            for (int j = 0; j < output.length; j = j + 2) {
+            for (int j = i*2; j < output.length; j = j + 2) {
                 if (allCDs[index][i] == null) {
                     output[j] = "Empty";
                     output[j + 1] = "Empty";
@@ -101,8 +101,18 @@ public class CDCollectionHandler {
      * Diese Methode dient dazu, einen CD-Ständer zu komprimieren. Dabei rücken spätere CDs einfach auf. Die vorhandene Sortierung bleibt erhalten.
      * @param box - Gewählter CD-Ständer
      */
-    public void pack(int box){
+    public void pack(int box) {
         //TODO: 06 - Komprimieren eines CD-Ständers, von unten nach oben
+                for (int i = 0; i < allCDs[box].length; i++) {
+                    if (allCDs[box][i] == null) {
+                        for (int j = i; j < allCDs[box].length; j++) {
+                            if (allCDs[box][j] != null) {
+                                allCDs[box][i] = new CompactDisc(allCDs[box][j].getArtist(), allCDs[box][j].getTitle());
+                                allCDs[box][j] = null;
+                            }
+                        }
+                    }
+                }
     }
 
     /**
