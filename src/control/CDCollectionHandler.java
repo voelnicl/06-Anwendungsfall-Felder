@@ -83,11 +83,18 @@ public class CDCollectionHandler {
     public String[] getAllCDsFrom(int index){
         //TODO: 05 - Vollständige Informationsausgabe aller CDs - Nach Fertigstellung im MainPanelHandler Zeile 165-167 entkommentieren
         String[] output = new String[allCDs[index].length *2];
-        for (int i = 0; i < output.length; i++) {
-            output[i] = allCDs[index][i].getArtist();
-            output[i+1] = allCDs[index][i].getTitle();
+        for (int i = 0; i < allCDs[index].length; i++) {
+            for (int j = 0; j < output.length; j = j + 2) {
+                if (allCDs[index][i] == null) {
+                    output[j] = "Empty";
+                    output[j + 1] = "Empty";
+                } else {
+                    output[j] = allCDs[index][i].getArtist();
+                    output[j + 1] = allCDs[index][i].getTitle();
+                }
+            }
         }
-        return null;
+        return output;
     }
 
     /**
