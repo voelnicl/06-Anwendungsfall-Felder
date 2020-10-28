@@ -69,10 +69,9 @@ public class CDCollectionHandler {
         //TODO: 04 - Entfernen einer bestimmten CD
         if (allCDs[box][place] == null) {
             return false;
-        } else {
+        }
             allCDs[box][place] = null;
             return true;
-        }
     }
 
     /**
@@ -84,15 +83,13 @@ public class CDCollectionHandler {
         //TODO: 05 - Vollständige Informationsausgabe aller CDs - Nach Fertigstellung im MainPanelHandler Zeile 165-167 entkommentieren
         String[] output = new String[allCDs[index].length *2];
         for (int i = 0; i < allCDs[index].length; i++) {
-            for (int j = i*2; j < output.length; j = j + 2) {
                 if (allCDs[index][i] == null) {
-                    output[j] = "Empty";
-                    output[j + 1] = "Empty";
+                    output[i*2] = "Empty";
+                    output[i*2+1] = "Empty";
                 } else {
-                    output[j] = allCDs[index][i].getArtist();
-                    output[j + 1] = allCDs[index][i].getTitle();
+                    output[i*2] = allCDs[index][i].getArtist();
+                    output[i*2+1] = allCDs[index][i].getTitle();
                 }
-            }
         }
         return output;
     }
@@ -105,10 +102,12 @@ public class CDCollectionHandler {
         //TODO: 06 - Komprimieren eines CD-Ständers, von unten nach oben
                 for (int i = 0; i < allCDs[box].length; i++) {
                     if (allCDs[box][i] == null) {
+                        boolean cd = false;
                         for (int j = i; j < allCDs[box].length; j++) {
-                            if (allCDs[box][j] != null) {
+                            if (allCDs[box][j] != null && !cd) {
                                 allCDs[box][i] = new CompactDisc(allCDs[box][j].getArtist(), allCDs[box][j].getTitle());
                                 allCDs[box][j] = null;
+                                cd = true;
                             }
                         }
                     }
