@@ -2,6 +2,8 @@ package control;
 
 import model.CompactDisc;
 
+import java.util.Arrays;
+
 /**
  * Created by Jean-Pierre on 21.10.2016.
  */
@@ -101,18 +103,21 @@ public class CDCollectionHandler {
      * Diese Methode dient dazu, einen CD-Ständer zu komprimieren. Dabei rücken spätere CDs einfach auf. Die vorhandene Sortierung bleibt erhalten.
      * @param box - Gewählter CD-Ständer
      */
-    public void pack(int box) {
+    public void pack(int box){
         //TODO: 06 - Komprimieren eines CD-Ständers, von unten nach oben
-                for (int i = 0; i < allCDs[box].length; i++) {
-                    if (allCDs[box][i] == null) {
-                        for (int j = i; j < allCDs[box].length; j++) {
-                            if (allCDs[box][j] != null) {
-                                allCDs[box][i] = new CompactDisc(allCDs[box][j].getArtist(), allCDs[box][j].getTitle());
-                                allCDs[box][j] = null;
-                            }
-                        }
+        boolean cd = true;
+        for(int i = 0; i < allCDs[box].length && cd; i++){
+            if(allCDs[box][i] == null){
+                cd = false;
+                for(int j = i+1; j < allCDs[box].length && !cd; j++){
+                    if(allCDs[box][j] != null){
+                        allCDs[box][i] = allCDs[box][j];
+                        allCDs[box][j] = null;
+                        cd = true;
                     }
                 }
+            }
+        }
     }
 
     /**
@@ -121,5 +126,21 @@ public class CDCollectionHandler {
      */
     public void sort(int box){
         //(TODO: 07 - Sortieren eines CD-Ständers)
+        pack(box);
+        int noNullCDs = 0;
+        for (int i = 0; i < allCDs[box].length && allCDs[box][i] != null; i++) {
+            noNullCDs = i + 1;
+        }
+        String[] sorted = new String[noNullCDs];
+        for (int j = 0; j < noNullCDs; j++) {
+            sorted[j] = allCDs[box][j].getArtist() + allCDs[box][j].getTitle();
+        }
+        Arrays.sort(sorted);
+        System.out.println(Arrays.toString(sorted));
+        for (int k = 0; k < noNullCDs; k++) {
+            allCDs[box][k].setArtist(sorted[k]);
+
+        }
+
     }
 }

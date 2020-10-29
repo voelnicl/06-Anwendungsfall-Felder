@@ -17,8 +17,10 @@ public class MainController {
         addNewCD(0,1,"ACDC","Back in Black");
         addNewCD(1,4,"Metallica","Master of Puppets");
         addNewCD(1,2,"Metallica","St. Anger");
+        addNewCD(1,3,"Die Ärzte","Planet Punk");
+        addNewCD(1,1,"Westernhagen","Die Sonne so rot");
         addNewCD(2,5,"Limp Bizkit","Significant Other");
-        addNewCD(2,5,"Limp Bizkit","Chocolate Starfish and the Hot Dog Flavoured Water");
+        addNewCD(1,5,"Limp Bizkit","Chocolate Starfish and the Hot Dog Flavoured Water");
     }
 
     public String[] showAllCDs(int index){
